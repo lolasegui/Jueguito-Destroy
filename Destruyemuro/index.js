@@ -16,6 +16,18 @@ let y = canvas.height - 30
 let dx = 2
 let dy = -2
 
+// variables de pala
+const amplePala= 70;
+const alturaPala = 10;
+
+let sensibilitat = 8;
+let dreta = false;
+let esquerra = false;
+
+
+let palaX =(canvas.width-amplePala) / 2
+let palaY = canvas.height- alturaPala - 10
+
 
 function pintarPilota() {
     ctx.beginPath();
@@ -27,6 +39,8 @@ function pintarPilota() {
 }
 
 function pintarPala() {
+    ctx.fillSyle = "FFF"
+    ctx.fillRect(palaX,palaY,amplePala, alturaPala)
 
 }
 
@@ -38,24 +52,67 @@ function deteccioColisio() {
 }
 
 function movimentPilota() {
-    if(x > canvas.width || x<= 0){
+    // REBOT EIX X
+
+    if(x > canvas.width - radiPilota || x+ dx<= 0 + radiPilota){
         dx= -dx;
     }
-    if(y > canvas.height || y<= 0){
+
+    // rebot eix Y
+    if(y + dy <= 0){
         dy= -dy;
     }
+
+    // game over
+    if(y + dy > canvas.height){
+        console.log("GAME OVER")
+        document.location.reload();
+    }
+    
+    // moviment
     x += dx
     y += dy
 
 }
 
 function movimentPala() {
-
+    if(dreta && palaX <canvas.width -amplePala){
+        palaX +=sensibilitat
+    }else if(esquerra && palaX > 0){
+        palaX -=sensibilitat
+    }
 }
 
 function borrarPantalla() {
     canvas.height = 512;
     canvas.width = 448;
+}
+
+function inicialitzadorEvents(){
+    document.addEventListener("keydown", pulsar);
+    document.addEventListener("keyup", soltar)
+
+    function pulsar(event){
+        if(event.key == 'ArrowRight' || event.key == 'd'){
+            dreta = true;
+        }
+
+        if(event.key == 'ArrowLeft' || event.key == 'a'){
+            esquerra = true;
+        }
+
+    }
+
+    function soltar(event){
+        if(event.key == 'ArrowRight' || event.key == 'd'){
+            dreta = false;
+        }
+
+        if(event.key == 'ArrowLeft' || event.key == 'a'){
+            esquerra = false;
+        }
+    }
+
 }
 
 function pintarCanvas() {
@@ -71,3 +128,4 @@ function pintarCanvas() {
 }
 
 pintarCanvas();
+inicialitzadorEvents();
