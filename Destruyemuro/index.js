@@ -17,8 +17,8 @@ let dx = 2
 let dy = -2
 
 // variables de pala
-const amplePala= 70;
-const alturaPala = 10;
+let amplePala= 70;
+let alturaPala = 10;
 
 let sensibilitat = 8;
 let dreta = false;
@@ -101,6 +101,13 @@ function inicialitzadorEvents(){
             esquerra = true;
         }
 
+          if(event.key ==  '+'){
+            amplePala = amplePala*2;
+        }
+
+        if(event.key ==  '-'){
+            amplePala = amplePala*2;
+        }
     }
 
     function soltar(event){
