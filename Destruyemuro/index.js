@@ -5,7 +5,7 @@ canvas.height = 512;
 canvas.width = 448;
 
 //variables pilota
-const radiPilota = 10;
+let radiPilota = 10;
 
 let x = canvas.width / 2
 let y = canvas.height - 30
@@ -106,7 +106,29 @@ function inicialitzadorEvents(){
         }
 
         if(event.key ==  '-'){
-            amplePala = amplePala*2;
+            amplePala = amplePala/2;
+        }
+         if(event.key ==  '.'){
+            radiPilota = radiPilota*2;
+        }
+
+        if(event.key ==  ','){
+            radiPilota = radiPilota/2;
+
+        }
+        if(event.key ==  'm'){
+            sensibilitat = sensibilitat*2;
+        }
+
+        if(event.key ==  'n'){
+            sensibilitat = sensibilitat/2;
+        }
+        if(event.key ==  'w'){
+            dx = dx*2;
+        }
+
+        if(event.key ==  'e'){
+            dy = dy/2;
         }
     }
 
@@ -119,6 +141,8 @@ function inicialitzadorEvents(){
             esquerra = false;
         }
     }
+
+
 
 }
 
