@@ -130,6 +130,21 @@ function inicialitzadorEvents(){
         if(event.key ==  'e'){
             dy = dy/2;
         }
+
+        if(event.key ==  'c'){
+
+            let dxNova = dx;
+            let dyNova = dx;
+            
+            dy = 0
+            dx = 0
+            setTimeout (() =>{
+                dy= dxNova;
+                dx =dyNova;
+            },3000)
+            
+        }
+
     }
 
     function soltar(event){
