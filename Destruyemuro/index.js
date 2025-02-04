@@ -28,6 +28,9 @@ let esquerra = false;
 let palaX =(canvas.width-amplePala) / 2
 let palaY = canvas.height- alturaPala - 10
 
+let vida=3;
+
+
 
 function pintarPilota() {
     ctx.beginPath();
@@ -65,14 +68,32 @@ function movimentPilota() {
 
     // game over
     if(y + dy > canvas.height){
+        vida -=1;
+        if(vida>0){
+            x =canvas.width/2
+            y = canvas.height -40;
+            palaX =(canvas.width -amplePala)/2
+            palaY =canvas.height - alturaPala -10;
+        }else{
+            document.location.reload();
+            ctx.font = '24px Serif'
+            ctx.textAlign = 'center'
+            ctx.fillText("Game Over", canvas.width/2, canvas.height/2)
+            setTimeout(()=>{
+
+            },50000)
+        }
         console.log("GAME OVER")
         document.location.reload();
     }
+
     
     // moviment
     x += dx
     y += dy
 
+
+    
 }
 
 function movimentPala() {
@@ -171,6 +192,8 @@ function pintarCanvas() {
     movimentPilota();
     movimentPala();
     window.requestAnimationFrame(pintarCanvas);
+
+    ctx.fillText("Vidas: "+vida, 10, 10)
 }
 
 pintarCanvas();
