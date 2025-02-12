@@ -6,6 +6,7 @@ canvas.width = 448;
 let colors = ["#c953e8","#7b1c7e","#8f62d9", "#ed3f76","#da1772","#3b376f"]
 
 
+
 //variables des Mexicans
 const filas = 6
 const columnes = 12
@@ -14,6 +15,10 @@ const alturaMur = 14;
 const margeTMur = 80;
 const margeEMur = 30;
 const sepMurs = 2;
+
+
+const sprites = document.getElementById("sprites");
+const mur  = document.getElementById("mur");
 
 const murs= []
 const ESTAT_MUR = {
@@ -24,7 +29,7 @@ const ESTAT_MUR = {
 for( let c= 0; c<columnes; c++){
     murs[c] = [];
     for(let f=0; f<filas; f++){
-        const color =colors[Math.floor(Math.random()*6)]
+        const color = Math.floor(Math.random()*6)
         const murX = margeEMur+c* (ampleMur+sepMurs)
         const murY = margeTMur+f*(alturaMur+sepMurs)
         murs[c][f] = {
@@ -78,26 +83,67 @@ function pintarPilota() {
 }
 
 function pintarPala() {
-    ctx.fillSyle = "FFF"
-    ctx.fillRect(palaX,palaY,amplePala, alturaPala)
+    //ctx.fillStyle = "#FFF";
+    //ctx.fillRect(palaX, palaY, amplePala, alturaPala);
 
+    ctx.drawImage(
+        sprites,
+        0, 
+        0,
+        626,
+        416,
+        palaX, 
+        palaY,
+        amplePala,
+        alturaPala,
+
+    )
 }
 
+
+
 function pintarMurs() {
+    for( let c= 0; c<columnes; c++){
+        for(let f=0; f<filas; f++){
+            const murActual = murs[c][f];
+            if(murActual.status == ESTAT_MUR.DESTRUIT){
+                continue;
+             }
+             let clipX = murActual.color * (517/6)
+             ctx.drawImage(
+                mur,
+                clipX, 
+                0,
+                (517/6),
+                40,
+                murActual.x, 
+                murActual.y,
+                ampleMur,
+                alturaMur,
+        
+            )
+        
+        }
+     
+}
+}
+function deteccioColisio() {
     for( let c= 0; c<columnes; c++){
         for(let f=0; f<filas; f++){
             const murActual = murs[c][f];
             if(murActual.status == ESTAT_MUR.DESTRUIT)
                 continue;
         
-        ctx.fillStyle = murActual.color;
-        ctx.rect(murActual.x,murActual.y,ampleMur,alturaMur)
-        ctx.fill();
+            const mateixaXMur = x > murActual.x && x < murActual.x + ampleMur
+            const mateixaYMur = y > murActual.y && y < murActual.y + alturaMur
+            if(mateixaYMur && mateixaXMur){
+                dy=-dy
+                murActual.status =  ESTAT_MUR.DESTRUIT
+            }
     }
 
 }
-}
-function deteccioColisio() {
+
 
 }
 
@@ -122,7 +168,7 @@ function movimentPilota() {
         dy = -dy;
 
     }else if (y + dy > canvas.height){
-            vides --
+            vida--
             x = canvas.width / 2
             y = canvas.height -30
             dx = 2

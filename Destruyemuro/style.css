@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(224, 157, 213);
+    background-color: rgb(4, 164, 238);
 }
 
 canvas{
@@ -7,4 +7,12 @@ canvas{
     margin: 0 auto;
     display: block;
     border-bottom: transparent;
+    background-image: url("https://media.istockphoto.com/id/1333010525/es/vector/ilustraci%C3%B3n-simple-de-pixel-art-plano-de-fondo-de-paisaje-al-aire-libre-de-dibujos-animados.jpg?s=612x612&w=0&k=20&c=vTVAVSCa_hAV8k0CIy3T5z27FtvL-RRA4DW1Sw1ARxA=");
+    background-size: cover;
+    background-position: center;
+}
+h1{
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(188, 230, 238);
 }
