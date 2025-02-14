@@ -5,7 +5,14 @@ canvas.height = 512;
 canvas.width = 448;
 let colors = ["#c953e8","#7b1c7e","#8f62d9", "#ed3f76","#da1772","#3b376f"]
 
+let musica = new Audio('./audioo/fun-amp-quirky-upbeat-retro-136510.mp3')
+musica.play();
 
+musica.addEventListener('ended', function() {
+    console.log('RELOAD')
+    this.currentTime = 0;
+    this.play();
+}, false);
 
 //variables des Mexicans
 const filas = 6
@@ -90,8 +97,8 @@ function pintarPala() {
         sprites,
         0, 
         0,
-        626,
-        416,
+        240,
+        180,
         palaX, 
         palaY,
         amplePala,
@@ -176,7 +183,7 @@ function movimentPilota() {
 
             if(vida == 0){
                 console.log ("GAME OVER")
-                document.location.reload();
+                
             }
 
     }
@@ -192,7 +199,7 @@ function movimentPilota() {
 
 
 function movimentPala() {
-    if(dreta && palaX <canvas.width -amplePala){
+    if(dreta && palaX < canvas.width-amplePala){
         palaX +=sensibilitat
     }else if(esquerra && palaX > 0){
         palaX -=sensibilitat
@@ -278,6 +285,10 @@ function inicialitzadorEvents(){
 }
 
 function pintarCanvas() {
+    if (vida == 0 ) {
+        ctx.fillText("GAME OVER", canvas.width / 2 -80, canvas.height / 2);
+        return;
+    }
     console.log("Hola");
     borrarPantalla();
     pintarPilota();
@@ -289,7 +300,13 @@ function pintarCanvas() {
     window.requestAnimationFrame(pintarCanvas);
 
     ctx.fillText("Vidas: "+vida, 10, 10)
+    
+  
 }
+
+
+
+
 
 pintarCanvas();
 inicialitzadorEvents();
